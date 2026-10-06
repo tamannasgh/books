@@ -9,7 +9,7 @@ const Login = () => {
         console.log("logged in");
     };
 
-    return <ThemedView>
+    return <ThemedView screen={true}>
         <ThemedText title={true}>Login</ThemedText>
         <ThemedPressable onPress={handleSubmit}>
             <Text style={{ color: "white" }}>Login</Text>

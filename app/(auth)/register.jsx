@@ -10,7 +10,7 @@ const Register = () => {
         console.log("registered");
     };
 
-    return <ThemedView>
+    return <ThemedView screen={true}>
         <ThemedText title={true}>Register</ThemedText>
         <ThemedPressable onPress={handleSubmit}>
             <Text style={{ color: "white" }}>Register</Text>
