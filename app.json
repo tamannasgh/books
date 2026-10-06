@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "dark",
+    "userInterfaceStyle": "light",
     "scheme": "books",
     "experiments": {
       "typedRoutes": true
@@ -26,14 +26,7 @@
       "bundler": "metro"
     },
     "plugins": [
-      "expo-router",
-      [
-        "expo-status-bar",
-        {
-          "hidden": false,
-          "style": "dark"
-        }
-      ]
+      "expo-router"
     ]
   }
 }
