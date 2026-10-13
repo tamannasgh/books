@@ -12,7 +12,9 @@ const Index = () => {
         <Spacer />
         <ThemedLogo />
         <ThemedText title={true} style={styles.title}>Heyy</ThemedText>
-        <Link href={"/login"}><ThemedText>login</ThemedText></Link>
+        <Link style={{ fontSize: 24 }} href={"/login"}><ThemedText>login</ThemedText></Link>
+        <Link style={{ fontSize: 24 }} href={"/profile"}><ThemedText>profile</ThemedText></Link>
+
     </ThemedView>;
 };
 

@@ -12,7 +12,7 @@ const Login = () => {
     return <ThemedView screen={true}>
         <ThemedText title={true}>Login</ThemedText>
         <ThemedPressable onPress={handleSubmit}>
-            <Text style={{ color: "white" }}>Login</Text>
+            <Text style={{ color: "white", }}>Login</Text>
         </ThemedPressable>
         <Link href={"/register"}><ThemedText>Resister instead</ThemedText></Link>
 
