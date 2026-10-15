@@ -8,8 +8,9 @@ const ThemedPressable = ({ style, ...props }) => {
 const styles = StyleSheet.create({
     btn: {
         backgroundColor: Colors.primary,
-        padding: 18,
-        borderRadius: 6,
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        borderRadius: 5,
         marginVertical: 10
     },
     pressed: {
