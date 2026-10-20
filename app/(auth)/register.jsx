@@ -6,15 +6,23 @@ import ThemedPressable from "../../components/ThemedPressable";
 import ThemedTextInput from "../../components/ThemedTextInput";
 import Spacer from "../../components/Spacer";
 import { useState } from "react";
+import { useUser } from "../../hooks/useUser";
 
 const Register = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { register } = useUser();
 
 
-    const handleSubmit = () => {
-        console.log("Register submitted: ", email, password);
+    const handleSubmit = async () => {
+        try {
+            console.log("Register submitted: ", email, password);
+            await register(email, password);
+
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     return <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
