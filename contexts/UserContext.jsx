@@ -7,7 +7,7 @@ export const UserContext = createContext(null);
 export const UserProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [authChecked, setAuthChecked] = useState(false);
 
     async function init() {
         try {
@@ -18,7 +18,7 @@ export const UserProvider = ({ children }) => {
             setUser(null);
             console.log(err);
         } finally {
-            setLoading(false);
+            setAuthChecked(true);
         }
     }
 
@@ -59,7 +59,7 @@ export const UserProvider = ({ children }) => {
         }
     }
 
-    return <UserContext.Provider value={{ user, loading, login, logout, register }}>
+    return <UserContext.Provider value={{ user, authChecked, login, logout, register }}>
         {children}
     </UserContext.Provider>;
 };

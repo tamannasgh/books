@@ -7,22 +7,26 @@ import ThemedTextInput from "../../components/ThemedTextInput";
 import Spacer from "../../components/Spacer";
 import { useState } from "react";
 import { useUser } from "../../hooks/useUser";
+import { Colors } from "../../constants/colors";
 
 const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState(null);
 
     const { login } = useUser();
 
 
     const handleSubmit = async () => {
+        setError(null);
         try {
             console.log("login submitted: ", email, password);
             await login(email, password);
 
         } catch (err) {
-            console.log(err);
+            console.log(err.message);
+            setError(err.message);
         }
     };
 
@@ -53,6 +57,11 @@ const Login = () => {
             <ThemedPressable onPress={handleSubmit} style={{ width: "80%", alignItems: "center" }}>
                 <Text style={{ color: "white", fontSize: 16 }}>Login</Text>
             </ThemedPressable>
+            {error &&
+                <>
+                    <Spacer height={25} />
+                    <Text style={styles.error}>{error}</Text>
+                </>}
 
             <Spacer />
 
@@ -71,6 +80,11 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: "bold"
+    },
+    error: {
+        color: Colors.warning,
+        paddingHorizontal: 10,
+        textAlign: "center"
     }
 });
 
