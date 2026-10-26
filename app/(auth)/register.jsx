@@ -1,27 +1,39 @@
 import { Link } from "expo-router";
 import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback } from "react-native";
+import { useState } from "react";
+
 import ThemedText from "../../components/ThemedText";
 import ThemedView from "../../components/ThemedView";
 import ThemedPressable from "../../components/ThemedPressable";
 import ThemedTextInput from "../../components/ThemedTextInput";
 import Spacer from "../../components/Spacer";
-import { useState } from "react";
 import { useUser } from "../../hooks/useUser";
+import { Colors } from "../../constants/colors";
+
 
 const Register = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState(null);
+    const [btnDisabled, setBtnDisabled] = useState(false);
+
+
     const { register } = useUser();
 
 
     const handleSubmit = async () => {
+        setBtnDisabled(true);
+        setError(null);
         try {
             console.log("Register submitted: ", email, password);
             await register(email, password);
 
         } catch (err) {
-            console.log(err);
+            console.log(err.message || "some error occured");
+            setError(err.message || "some error occured");
+        } finally {
+            setBtnDisabled(false);
         }
     };
 
@@ -49,9 +61,16 @@ const Register = () => {
 
             <Spacer height={25} />
 
-            <ThemedPressable onPress={handleSubmit} style={{ width: "80%", alignItems: "center" }}>
+            <ThemedPressable onPress={handleSubmit} disabled={btnDisabled} style={{ width: "80%", alignItems: "center" }}>
                 <Text style={{ color: "white", fontSize: 16 }}>Register</Text>
             </ThemedPressable>
+
+            {error &&
+                <>
+                    <Spacer height={25} />
+                    <Text style={styles.error}>{error}</Text>
+                </>}
+
 
             <Spacer />
 
@@ -70,6 +89,11 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: "bold"
+    },
+    error: {
+        color: Colors.warning,
+        paddingHorizontal: 10,
+        textAlign: "center"
     }
 });
 

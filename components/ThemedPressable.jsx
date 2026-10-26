@@ -1,8 +1,8 @@
 import { Pressable, StyleSheet } from "react-native";
 import { Colors } from "../constants/colors";
 
-const ThemedPressable = ({ style, ...props }) => {
-    return <Pressable style={({ pressed }) => [styles.btn, pressed && styles.pressed, style]} {...props} />;
+const ThemedPressable = ({ style, disabled = false, ...props }) => {
+    return <Pressable style={({ pressed }) => [styles.btn, pressed && styles.pressed, disabled && styles.pressed, style]} disabled={disabled} {...props} />;
 };
 
 const styles = StyleSheet.create({

@@ -16,6 +16,7 @@ const profile = () => {
         <ThemedPressable style={{ backgroundColor: Colors.warning, alignSelf: "center" }} onPress={logout}>
             <Text style={{ color: "white", fontSize: 16 }}>Logout</Text>
         </ThemedPressable>
+
     </ThemedView>;
 };
 

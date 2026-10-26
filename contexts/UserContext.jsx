@@ -16,7 +16,7 @@ export const UserProvider = ({ children }) => {
         } catch (err) {
             //account.get will throw error if no session is there.
             setUser(null);
-            console.log(err);
+            console.log(err, "userContext file se");
         } finally {
             setAuthChecked(true);
         }
