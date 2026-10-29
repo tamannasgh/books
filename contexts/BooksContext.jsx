@@ -37,7 +37,7 @@ export function BooksProvider({ children }) {
 
     async function createBook(data) {
         try {
-            if (!data.title || !data.author || !data.des) {
+            if (!data.title.trim() || !data.author.trim() || !data.des.trim()) {
                 throw Error("all fields are required");
             }
             const res = await tablesDB.createRow({
