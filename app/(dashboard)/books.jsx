@@ -23,7 +23,7 @@ const books = () => {
 
         <Spacer />
 
-        {loading ? <ThemedLoader /> : books.rows.length > 0 ? <ThemedText>{books?.rows[0].title}</ThemedText> : <ThemedText>No Books yet, create one</ThemedText>}
+        {loading ? <ThemedLoader /> : books.length > 0 ? <ThemedText>{books[0].title}</ThemedText> : <ThemedText>No Books yet, create one</ThemedText>}
     </ThemedView>;
 };
 

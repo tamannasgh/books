@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { ID, Query } from "react-native-appwrite";
+import { ID, Permission, Query, Role } from "react-native-appwrite";
 
 import { tablesDB } from "../lib/appwrite";
 import { useUser } from "../hooks/useUser";
@@ -23,8 +23,8 @@ export function BooksProvider({ children }) {
                 tableId,
                 queries: [Query.equal("userId", [user?.["$id"]])]
             });
-            console.log(books, "from book ctx");
-            setBooks(books);
+            console.log(books.rows, "from book ctx");
+            setBooks(books.rows);
 
         } catch (err) {
             throw err;
@@ -33,19 +33,27 @@ export function BooksProvider({ children }) {
         }
     }
 
-    useEffect(() => { getAllBooks(); }, [user]);
+    useEffect(() => { getAllBooks(); }, [user, books]);
 
     async function createBook(data) {
         try {
+            if (!data.title || !data.author || !data.des) {
+                throw Error("all fields are required");
+            }
             const res = await tablesDB.createRow({
                 databaseId,
                 tableId,
                 rowId: ID.unique(),
                 //just spreading data as it is becuase they match the names (if i had desc instead of des that i have in DB i would do something like des: data.desc, kepp the names SAME)
-                data: { ...data, userId: user?.["$id"] }
+                data: { ...data, userId: user?.$id },
+                permissions: [
+                    Permission.read(Role.user(user?.$id)),
+                    Permission.update(Role.user(user?.$id)),
+                    Permission.delete(Role.user(user?.$id))
+                ]
             });
+            return res;
 
-            console.log(res);
         } catch (err) {
             throw err;
         }
@@ -64,7 +72,7 @@ export function BooksProvider({ children }) {
     }
 
 
-    return <BooksContext.Provider value={{ books, loading, createBook }}>
+    return <BooksContext.Provider value={{ books, setBooks, loading, createBook }}>
         {children}
     </BooksContext.Provider>;
 }
